@@ -44,7 +44,10 @@
     });
     var m = METHODS[IDS.indexOf(cur)];
     $('intro').innerHTML = '<b>' + m[2] + '</b>　' + m[3];
-    document.body.classList.toggle('compact-header', cur !== 'liuyao');
+    if (cur === 'liuyao') {
+      if (window.XinsuApp && window.XinsuApp.renderQuota) window.XinsuApp.renderQuota();
+    } else paintQuota(cur);
+    if (window.XinsuAdvice) window.XinsuAdvice.prefetch(cur);
   }
   function hideAllMethodViews() { IDS.forEach(function (id) { if (id !== 'liuyao') $('m-' + id).hidden = true; }); }
   function showMethod(m) {
@@ -191,14 +194,38 @@
     var A = window.XINSU_ASSETS || {};
     var banner = (A.banners && A.banners[id]) ? '<img class="mbanner" src="' + A.banners[id] + '" width="750" height="200" alt="">' : '';
     var credit = id === 'tarot' ? '<p class="credit">Pamela Colman Smith 1909 原畫（公有領域）</p>' : '';
-    $('m-' + id).innerHTML = banner + '<div id="' + id + '-form">' + inner + '</div><p class="msg" id="' + id + '-msg"></p><div id="' + id + '-ref"></div>' +
+    $('m-' + id).innerHTML = banner + '<div class="today"><span id="' + id + '-quota" class="pill">今日剩餘 2 次</span></div>' +
+      '<p id="' + id + '-quota-msg" class="msg" hidden></p>' +
+      '<div id="' + id + '-form">' + inner + '</div><p class="msg" id="' + id + '-msg"></p><div id="' + id + '-ref"></div>' +
       '<button type="button" class="btn" id="' + id + '-go">' + btn + '</button>' + credit + discHTML() + '<div id="' + id + '-out" class="mout"></div>';
+    paintQuota(id);
+  }
+  function paintQuota(id) {
+    var Q = window.XinsuQuota;
+    if (!Q) return;
+    Q.paint(id, $(id + '-quota'), $(id + '-quota-msg'), $(id + '-go'));
+  }
+  function gate(id) {
+    var Q = window.XinsuQuota;
+    if (!Q) return true;
+    if (Q.remaining(id) <= 0) {
+      paintQuota(id);
+      $(id + '-msg').textContent = Q.BLOCK;
+      return false;
+    }
+    return true;
+  }
+  function finish(id, html, adviceCtx) {
+    var Q = window.XinsuQuota;
+    if (Q) { Q.consume(id); paintQuota(id); }
+    showOut(id, html, adviceCtx);
   }
   function fail(id, errs) { $(id + '-msg').innerHTML = errs.map(esc).join('<br>'); $(id + '-out').innerHTML = ''; }
   function clear(id) { $(id + '-msg').innerHTML = ''; $(id + '-ref').innerHTML = ''; }
   var NAMES = { bazi: '八字', ziwei: '紫微', qimen: '奇門', hehun: '合婚', fengshui: '風水', tarot: '塔羅' };
-  function showOut(id, html) {
-    $(id + '-out').innerHTML = html + discHTML() + '<p class="muted small noimg" style="text-align:center">結果只在這台裝置計算；可按「存成圖片」保留或分享。</p>' + X.saveBtnHTML(id + '-out', NAMES[id]);
+  function showOut(id, html, adviceCtx) {
+    $(id + '-out').innerHTML = html + '<div id="' + id + '-advice"></div>' + discHTML() + '<p class="muted small noimg" style="text-align:center">結果只在這台裝置計算；可按「存成圖片」保留或分享。</p>' + X.saveBtnHTML(id + '-out', NAMES[id]);
+    if (window.XinsuAdvice) window.XinsuAdvice.mount(id + '-advice', id, adviceCtx || {});
     if (id === 'tarot') {
       var pack = (window.XINSU_ASSETS && window.XINSU_ASSETS.tarot) || {};
       Array.prototype.forEach.call($(id + '-out').querySelectorAll('img[data-tid]'), function (img) {
@@ -244,6 +271,7 @@
     clear('bazi');
     var b = E.resolveBirth(bzForm.read());
     if (!b.ok) return fail('bazi', b.errs);
+    if (!gate('bazi')) return;
     var r = E.bazi(b), h = '';
     h += '<div class="card">' + birthHeader(b) + notesHTML(b.notes.concat(r.warnings)) + pillarTable(r) + '</div>';
     h += '<div class="card"><h3>五行字數</h3>' + countHTML(r) + '<p class="muted small" style="margin:6px 0 0">天干加地支本氣，共 ' + r.countTotal + ' 字。這只是字數統計，不等於五行旺衰。</p></div>';
@@ -257,7 +285,7 @@
       '<p class="muted small" style="margin:8px 0 0">日柱旬空：' + r.kong.join('、') + '。神煞各家取法不一，取法列在下方。</p></div>';
     h += rulesHTML(BZ_RULES);
     X.Records.add('bazi', b.input, baziOut(r));
-    showOut('bazi', h);
+    finish('bazi', h, { result: r });
   });
 
   // ---------- 紫微 ----------
@@ -273,6 +301,7 @@
     clear('ziwei');
     var b = E.resolveBirth(zwForm.read(), { requireTime: true });
     if (!b.ok) return fail('ziwei', b.errs);
+    if (!gate('ziwei')) return;
     if (!Z) return fail('ziwei', ['紫微程式庫載入失敗。']);
     var dt = b.dt, y = dt.y, m = dt.m, d = dt.d, idx, notes = b.notes.slice();
     if (dt.h === 23) {
@@ -307,7 +336,7 @@
       palaces: a.palaces.map(function (p) { function st(x) { return { name: x.name, brightness: x.brightness || '', mutagen: x.mutagen || '' }; } return { name: p.name, gz: p.heavenlyStem + p.earthlyBranch, isBody: p.isBodyPalace, major: p.majorStars.map(st), minor: p.minorStars.map(st), adjective: p.adjectiveStars.map(function (x) { return x.name; }), decadal: p.decadal.range }; }),
       notes: notes });
     h += rulesHTML(['排盤由 iztro 程式庫完成（預設通行派安星法），主星亮度、四化、雜曜依該庫設定。', '23:00 後出生：' + (segVal($('zw-late')) === 'next' ? '算次日子時' : '日期仍算當天') + '；閏月：' + (fix ? '十五日以前按本月、十六日起按下月' : '整月按本月') + '。', '大限歲數為虛歲。']);
-    showOut('ziwei', h);
+    finish('ziwei', h, { result: a });
   });
 
   // ---------- 奇門 ----------
@@ -332,6 +361,7 @@
       if (t && (t.y < 1901 || t.y > 2099)) errs.push('起局年份請在 1901–2099 之間。');
     } else t = E.taipeiNow();
     if (errs.length) return fail('qimen', errs);
+    if (!gate('qimen')) return;
     var c = E.qimen(t), cat = segVal($('qm-cat')) || '其他', fo = E.qimenFocus(c, cat);
     var g = '<div class="qm">';
     QM_GRID.forEach(function (p) {
@@ -356,7 +386,7 @@
       (X.Records.add('qimen', { question: q, category: cat, aim: segVal($('qm-aim')), time: E.fmtDT(t) }, { chart: c, focus: fo }) && '') +
       '<div class="card"><h3>基本資訊</h3>' + info + '</div>' +
       rulesHTML(['陰陽遁看當下節氣（含中氣）：冬至到芒種陽遁，夏至到大雪陰遁。', '三元：日柱（23:00 起算次日）在六十甲子的序號 ÷ 5 取整數再 mod 3。', '值符星轉到時干落宮，八星與天盤干沿 1→8→3→4→9→2→7→6 整體旋轉；值使從旬首儀地盤宮起每時辰走一宮，落五寄坤。', '用神框選：事業看開門、值符；財運看生門、天盤戊；感情看六合、天盤乙庚；考試看景門、天盤丁；健康看天芮、天心（以上依開發說明）。出行看開門與驛馬、訴訟看驚門與值符、尋物看時干落宮與六合、其他看值符、值使與時干（以上為本站補充，請自行斟酌）。']);
-    showOut('qimen', h);
+    finish('qimen', h, { result: c, focus: fo, cat: cat });
   });
 
   // ---------- 合婚 ----------
@@ -369,6 +399,7 @@
     if (!a.ok) errs = errs.concat(a.errs.map(function (x) { return '甲方：' + x; }));
     if (!b.ok) errs = errs.concat(b.errs.map(function (x) { return '乙方：' + x; }));
     if (errs.length) return fail('hehun', errs);
+    if (!gate('hehun')) return;
     var A = E.bazi(a), B = E.bazi(b), r = E.hehun(A, B), na = a.name || '甲方', nb = b.name || '乙方';
     function rel(x) { return x.rel.length ? x.rel.join('、') : '無合沖刑害'; }
     var h = '<div class="card"><p class="small" style="margin:0">目前關係：<span class="tag">' + esc(segVal($('hh-rel'))) + '</span></p></div>';
@@ -387,7 +418,7 @@
     h += '<div class="card"><h3>年柱納音</h3><p style="margin:0">' + esc(na) + ' ' + A.pillars[0].gz + ' ' + r.nayin.a + '；' + esc(nb) + ' ' + B.pillars[0].gz + ' ' + r.nayin.b + '</p><p class="small" style="margin:4px 0 0">納音五行：' + r.nayin.rel + '</p></div>';
     X.Records.add('hehun', { a: a.input, b: b.input, relation: segVal($('hh-rel')) }, { a: baziOut(A), b: baziOut(B), compare: r });
     h += '<div class="notice">本頁不打分數、不給姻緣指數：手邊參考資料只有各項的權重，沒有可重現的計分細則，硬算分數等於編造。請把以上當作彼此了解的話題。</div>';
-    showOut('hehun', h);
+    finish('hehun', h, { result: r });
   });
 
   // ---------- 風水 ----------
@@ -474,6 +505,7 @@
       else if (g) people.push({ name: label, g: g, y: +mt[1], m: +mt[2], d: +mt[3] });
     });
     if (errs.length) return fail('fengshui', errs);
+    if (!gate('fengshui')) return;
     var py = mm === 1 ? my - 1 : my, pnotes = [];
     if (mm === 1) pnotes.push('一月入住在立春前，元運以 ' + py + ' 年計。');
     if ((mm === 2 || !mm) && E.periodOf(my - 1) !== E.periodOf(my)) pnotes.push(my + ' 年是換運年；' + (mm === 2 ? '二月' : '月份不確定') + '時以立春後計為 ' + E.periodOf(my) + ' 運，若在立春前入住應為 ' + E.periodOf(my - 1) + ' 運。');
@@ -504,7 +536,7 @@
     X.Records.add('fengshui', { degree: di ? di.deg : null, sitting: sitting, useTi: useTi, moveIn: my + (mm ? '/' + mm : ''), built: $('fs-built').value, year: year, focus: focus, note: note, people: people },
       { chart: f1, degreeInfo: di, bazhai: bz, people: people.map(function (p) { var mg = E.mingGua(p.y, p.m, p.d, p.g); return { name: p.name, num: mg.num, gua: mg.gua, group: mg.group, you: mg.you }; }) });
     h += rulesHTML(['24 山每山 15°，子山中線 0°；偏離中線 ≥6° 提示大／小空亡，>3° 提示兼向並兩盤並參。', '元運：1864 年起每 20 年一運，以立春分年。', '山星、向星：取運盤落在坐宮、向宮的數入中；以該數洛書本宮內與坐山（向首）同元龍那一山的陰陽定順逆，5 入中用坐山（向首）本身陰陽。', '替卦：子癸甲申→1；坤壬乙卯未→2；戌乾亥辰巽巳→6；艮丙辛酉丑→7；寅午庚丁→9；5 不替，順逆不變。', '旺衰：當運星為當旺，後兩運為生氣，前一運為退氣，五黃另列，其餘為衰死。', '流年星：(11 − 年 mod 9) mod 9，0 當 9。八宅：宅卦依坐山；命卦依立春分年。']);
-    showOut('fengshui', h);
+    finish('fengshui', h, { flying: f1, bz: bz, people: people.map(function (p) { var mg = E.mingGua(p.y, p.m, p.d, p.g); return { name: p.name, group: mg.group, match: (mg.group === '東四命') === (bz.group === '東四宅') }; }), focus: focus });
   });
 
   // ---------- 塔羅 ----------
@@ -525,11 +557,11 @@
     if (q.length < 2) errs.push('請寫下想問的事（至少 2 個字）。');
     if (sd && !E.parseSeed(sd, now.h)) errs.push('種子格式不正確：請填 1–8 位英數（0–9、A–F），可加 -M／-A／-N。');
     if (errs.length) return fail('tarot', errs);
+    if (!gate('tarot')) return;
     var code = sd || E.newSeed(now.h), r = E.drawTarot($('tr-sp').value, code, now.h);
     var btn = $('tarot-go'); btn.disabled = true;
     $('tarot-out').innerHTML = '<div class="shuffle" aria-label="洗牌中"><i></i><i></i><i></i><i></i><i></i></div><p class="progress">洗牌中…</p>';
     setTimeout(function () {
-      btn.disabled = false;
       var h = '<div class="card"><span class="tag">' + r.spread + '</span><p class="q-echo">「' + esc(q) + '」</p><p class="muted small" style="margin:4px 0 0">種子 <b class="mono">' + r.seed + '</b>（' + E.fmtDT(now) + ' 台北時間）</p></div>';
       h += r.cards.map(function (c, i) {
         var k = c.card;
@@ -539,7 +571,7 @@
       }).join('');
       X.Records.add('tarot', { question: q, spread: r.spreadKey, seed: r.seed }, { spread: r.spread, cards: r.cards.map(function (c) { return { position: c.pos, key: c.key, card: c.card.name, major: c.card.major, element: c.card.el, upright: c.upright, cue: c.card.cue }; }) });
       h += '<p class="muted small">牌義只提供通則線索：花色、數字、宮廷與大阿卡納階段，請對照自己的問題思考。</p>';
-      showOut('tarot', h);
+      finish('tarot', h, { question: q, cards: r.cards, spread: r.spreadKey });
     }, 1200);
   });
 

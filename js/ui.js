@@ -3,7 +3,8 @@
 (function () {
   'use strict';
   var L = window.LiuYao, D = window.XinsuData;
-  var KEY_Q = 'xinsu.v1.quota', KEY_H = 'xinsu.v1.history', DAILY = 2, HMAX = 50;
+  var KEY_H = 'xinsu.v1.history', HMAX = 50;
+  var Q = window.XinsuQuota;
   var CATS = ['感情', '事業', '財運', '健康', '人際'];
   var SUGGEST = [
     ['這份工作還要不要繼續？', '事業'],
@@ -30,10 +31,8 @@
   function sget(k) { try { return window.localStorage.getItem(k); } catch (e) { return mem[k] || null; } }
   function sset(k, v) { try { window.localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
   function loadJSON(k, def) { try { var s = sget(k); return s ? JSON.parse(s) : def; } catch (e) { return def; } }
-  function todayStr() { var t = L.taipeiNow(); return L.fmtDate(t.y, t.m, t.d); }
-  function used() { var q = loadJSON(KEY_Q, null); return (q && q.date === todayStr()) ? (q.used | 0) : 0; }
-  function remaining() { return Math.max(0, DAILY - used()); }
-  function consume() { sset(KEY_Q, JSON.stringify({ date: todayStr(), used: used() + 1 })); }
+  function remaining() { return Q.remaining('liuyao'); }
+  function consume() { Q.consume('liuyao'); }
   function history() { var h = loadJSON(KEY_H, []); return Array.isArray(h) ? h : []; }
   function saveHistory(h) { sset(KEY_H, JSON.stringify(h.slice(0, HMAX))); }
 
@@ -41,7 +40,7 @@
   function $(id) { return document.getElementById(id); }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function fmtTime(r) { return L.fmtDate(r.y, r.m, r.d) + ' ' + L.pad(r.hh) + ':' + L.pad(r.mi) + '（台北時間）'; }
-  var BLOCK = '今日 2 次問事已用完，明日台北時間 00:00 重置。';
+  var BLOCK = Q.BLOCK;
 
   // ---------- 導覽 ----------
   function show(v) {
@@ -67,13 +66,8 @@
   // ---------- 問事頁 ----------
   function renderQuota() {
     var n = remaining(), t = L.taipeiNow(), d = L.dayPillar(t.y, t.m, t.d);
-    $('quota').textContent = '今日剩餘問事次數：' + n;
-    $('quota').className = 'pill' + (n === 0 ? ' zero' : '');
     $('todayinfo').textContent = '今天 ' + L.fmtDate(t.y, t.m, t.d) + '・' + d.gz + '日';
-    $('quota-msg').hidden = n > 0;
-    $('quota-msg').textContent = BLOCK;
-    $('start').disabled = n === 0;
-    $('start').textContent = n === 0 ? '今日次數已用完' : '開始起卦';
+    Q.paint('liuyao', $('quota'), $('quota-msg'), $('start'));
   }
   function renderCats() {
     $('cats').innerHTML = CATS.map(function (c) {
@@ -285,10 +279,19 @@
     h += '<p class="muted small" style="margin:10px 0 0">經文：《周易》（公有領域）</p></div>';
 
     h += '<div class="card"><h3>用神提示・' + esc(rec.cat) + '</h3>' + yongshenHTML(rec.cat, ch) + '</div>';
+    h += '<div id="liuyao-advice"></div>';
     h += '<p class="disclaimer">僅供娛樂與自我反思，非專業建議。本服務適合滿 18 歲使用者。一事一占，此卦已定案。</p>';
     h += '<div class="btn-row noimg"><button type="button" class="btn ghost" data-go="history">看紀錄</button><button type="button" class="btn" data-go="ask">回問事頁</button></div>';
     if (window.XinsuExtras) h += window.XinsuExtras.saveBtnHTML('result-body', '六爻');
     $('result-body').innerHTML = h;
+    if (window.XinsuAdvice) {
+      window.XinsuAdvice.mount('liuyao-advice', 'liuyao', {
+        num: M.num, name: M.name, note: dm.note, cat: rec.cat, q: rec.q,
+        movingCount: ch.moving.length,
+        changedName: C ? C.name : '',
+        changedNote: dc ? dc.note : ''
+      });
+    }
   }
   $('result-body').addEventListener('click', function (e) {
     var b = e.target.closest('[data-go]'); if (b) { state.resultFrom = 'ask'; show(b.getAttribute('data-go')); }
@@ -326,9 +329,21 @@
     var r = L.selfTest(), ok = r.filter(function (t) { return t.pass; }).length;
     $('test-out').innerHTML = '<p style="margin:10px 0 4px;font-weight:700">' + ok + '／' + r.length + ' 項通過</p><ul class="tests">' +
       r.map(function (t) { return '<li class="' + (t.pass ? 'ok' : 'ng') + '">' + (t.pass ? '✓ ' : '✗ ') + esc(t.name) + (t.detail ? '：' + esc(t.detail) : '') + '</li>'; }).join('') + '</ul>';
+    if (Q && Q.selfTest) {
+      var q = Q.selfTest(), qok = q.filter(function (t) { return t.pass; }).length;
+      $('test-out').insertAdjacentHTML('beforeend', '<p style="margin:12px 0 4px;font-weight:700">每日次數：' + qok + '／' + q.length + ' 項通過</p><ul class="tests">' +
+        q.map(function (t) { return '<li class="' + (t.pass ? 'ok' : 'ng') + '">' + (t.pass ? '✓ ' : '✗ ') + esc(t.name) + (t.detail ? '：' + esc(t.detail) : '') + '</li>'; }).join('') + '</ul>');
+    }
+    if (window.XinsuAdvice && window.XinsuAdvice.selfTest) {
+      window.XinsuAdvice.selfTest().then(function (a) {
+        var aok = a.filter(function (t) { return t.pass; }).length;
+        $('test-out').insertAdjacentHTML('beforeend', '<p style="margin:12px 0 4px;font-weight:700">規則建議：' + aok + '／' + a.length + ' 項通過</p><ul class="tests">' +
+          a.map(function (t) { return '<li class="' + (t.pass ? 'ok' : 'ng') + '">' + (t.pass ? '✓ ' : '✗ ') + esc(t.name) + (t.detail ? '：' + esc(t.detail) : '') + '</li>'; }).join('') + '</ul>');
+      });
+    }
   });
 
-  window.XinsuApp = { show: show, view: function () { return state.view; } };
+  window.XinsuApp = { show: show, view: function () { return state.view; }, renderQuota: renderQuota };
   // ---------- 啟動 ----------
   renderCats(); renderMode(); renderQuota(); updCount();
   // 跨過午夜時刷新次數

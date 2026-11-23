@@ -59,7 +59,7 @@
   <!-- 問事 -->
   <section id="v-ask" class="ask-deco">
     <img class="mbanner" src="img/banners/banner_liuyao.webp" width="750" height="200" alt="">
-    <div class="today"><span id="quota" class="pill">今日剩餘問事次數：2</span><span id="todayinfo" class="muted small"></span></div>
+    <div class="today"><span id="quota" class="pill">今日剩餘 2 次</span><span id="todayinfo" class="muted small"></span></div>
     <p id="quota-msg" class="msg" hidden></p>
 
     <div class="card">
@@ -149,7 +149,8 @@
     <div class="card">
       <h3>次數與資料</h3>
       <ul>
-        <li>每天可問 2 次，完成一次問事才扣 1 次；台北時間 00:00 重置。</li>
+        <li>每個項目每天可問 2 次，項目分開計算；完成一次起卦、排盤或抽牌才扣 1 次，中途返回不扣次數。</li>
+        <li>次數依本機日期、台北時間 00:00 重置。</li>
         <li>次數與紀錄只存在本機瀏覽器（localStorage），不會上傳。</li>
         <li>清除瀏覽器網站資料、使用無痕視窗或換手機，次數與紀錄都會不見。</li>
       </ul>
@@ -172,13 +173,14 @@
     <div class="card">
       <h3>其他術數（八字、紫微、奇門、合婚、風水、塔羅）</h3>
       <ul>
-        <li>不限次數、不存紀錄，結果只在本機計算；需要保留請自行截圖。</li>
+        <li>各項每天同樣限 2 次，完成排盤或抽牌才扣 1 次；結果只在本機計算，不會自動存進紀錄，需要保留請自行截圖或存成圖片。</li>
         <li>八字：年柱以立春精確時刻、月柱以十二節精確時刻分界；23:00 起算次日（夜子時）；起運以三天折一年。時辰未知只排三柱。</li>
         <li>紫微：必須有時辰；23:00 後預設算次日子時，閏月預設十五日以前按本月、十六日起按下月，兩者都可在進階選項改。</li>
         <li>奇門：時家轉盤、拆補法；只排盤和標示，不自動論吉凶。</li>
         <li>合婚：只對照干支與五行，不打分數（參考資料沒有可重現的計分細則）。</li>
         <li>風水：玄空飛星（1864 年起每 20 年一運，以立春分年）與八宅；不自動論斷，平面圖判讀即將推出。</li>
         <li>塔羅：78 張牌依牌陣不重複抽出；同一個種子與牌陣可重現同一組牌。</li>
+        <li>排盤或抽牌後會出現「給你的建議」，依傳統義理套用本機文字，不連線、不經過 AI，僅供參考。</li>
         <li>時間一律以台北時間（UTC+8）鐘錶時間計算，不做真太陽時。</li>
         <li>曆法：1901–2099 年的閏月與香港天文台《公曆與農曆日期對照表》逐年一致；逐日比對只有 2057 年九月差一天（各家曆算本身的差異），另有 6 個節氣的交節時刻離午夜不到 12 分鐘、兩邊歸到不同日。</li>
       </ul>
@@ -187,25 +189,6 @@
       <h3>我的資料與匯出</h3>
       <p class="muted small" style="margin:0 0 8px">出生資料可在表單上「存為我的資料」，之後一鍵帶入（最多 10 筆）。所有資料只存在這台裝置。</p>
       <div id="export-box"></div>
-    </div>
-    <div class="card">
-      <h3>圖片與字型來源</h3>
-      <ul>
-        <li>塔羅牌面：Pamela Colman Smith 1909 原畫（公有領域）。掃描整理：Saskia Jansen，經 Wikimedia Commons 取得。</li>
-        <li>牌背、分頁圖示、橫幅、羅盤與卦象裝飾、網站圖示、銅錢圖：心訴原創繪製。</li>
-        <li>主標字：Canva 文字元素，楷書。</li>
-        <li>內文字型：霞鶩文楷 TC（SIL Open Font License）。缺字「稊」「胏」取自思源宋體（SIL Open Font License，1.1 版），內嵌補字字型已更名為 Xinsu Supplement。</li>
-        <li>背景音樂：瀏覽器即時合成，沒有使用外部音樂檔。</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>使用的程式庫與授權</h3>
-      <ul>
-        <li><b>lunar-javascript</b> v1.7.8：作者 6tail，MIT 授權（曆法、節氣、干支）。</li>
-        <li><b>html-to-image</b> v1.11.13：作者 bubkoo（W.Y.），MIT 授權（存成圖片）。</li>
-        <li><b>iztro</b> v2.6.5：作者 SylarLong 與貢獻者，MIT 授權（紫微斗數排盤；內含 lunar-lite、i18next、dayjs 等 MIT 授權元件；本站重新打包為共用 lunar-javascript，輸出經 1,500 組命盤比對與原版相同）。</li>
-      </ul>
-      <p class="muted small" style="margin:4px 0 0">程式庫原始授權標頭保留在對應的程式檔內。</p>
     </div>
     <div class="card">
       <h3>年齡與免責</h3>
@@ -226,7 +209,7 @@
       <button type="button" class="btn ghost" id="run-tests">執行自檢</button>
       <div id="test-out"></div>
     </div>
-    <p class="disclaimer">心訴 多術數版 v1.2</p>
+    <p class="disclaimer">心訴 多術數版 v1.3</p>
   </section>
 </main>
 
@@ -247,8 +230,10 @@
 <script src="js/engines.js"></script>
 <script src="js/gloss.js"></script>
 <script src="js/interp.js"></script>
+<script src="js/advice.js"></script>
 <script src="js/html-to-image.js"></script>
 <script src="js/save.js"></script>
+<script src="js/quota.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/multi.js"></script>
 </body>

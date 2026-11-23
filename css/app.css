@@ -353,13 +353,7 @@ nav.tabs button img{width:22px;height:22px;display:block}
 
 :root{--coin-bei:url(../img/coins/coin_back_bei.webp);--coin-zi:url(../img/coins/coin_front_zi.webp);--tarot-back:url(../img/tarot/card_back.webp);}
 /* 非六爻分頁：約 100px 精簡頂欄（小字圖 + 音樂鈕） */
-body.compact-header header.top{padding:6px 0}
-body.compact-header header.top .wrap{flex-direction:row;align-items:center;justify-content:flex-start;gap:8px;padding-top:0}
-body.compact-header .wordmark{width:52px;margin:0;flex:none}
-body.compact-header .slogan{display:none}
-body.compact-header .musictop{padding:0;flex:1;min-width:0}
-body.compact-header .musicbar{margin:0;gap:8px}
-body.compact-header .mhint,
-body.compact-header .musicbar.mnote{display:none!important}
-body.compact-header .musicbar button{padding:3px 10px;font-size:13px}
 
+.card.advice{background:#FBF6EF;border-color:#E6D6C4}
+.card.advice h3{color:var(--tone)}
+.card.advice ul.plainl{margin:8px 0}

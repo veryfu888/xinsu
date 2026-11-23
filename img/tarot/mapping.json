@@ -1,0 +1,709 @@
+{
+  "by_id": [
+    {
+      "id": 0,
+      "file": "major_00_fool.webp",
+      "zh": "愚者",
+      "en": "The Fool",
+      "app_name": "愚者",
+      "major": true
+    },
+    {
+      "id": 1,
+      "file": "major_01_magician.webp",
+      "zh": "魔術師",
+      "en": "The Magician",
+      "app_name": "魔術師",
+      "major": true
+    },
+    {
+      "id": 2,
+      "file": "major_02_high_priestess.webp",
+      "zh": "女祭司",
+      "en": "The High Priestess",
+      "app_name": "女祭司",
+      "major": true
+    },
+    {
+      "id": 3,
+      "file": "major_03_empress.webp",
+      "zh": "女皇",
+      "en": "The Empress",
+      "app_name": "女皇",
+      "major": true
+    },
+    {
+      "id": 4,
+      "file": "major_04_emperor.webp",
+      "zh": "皇帝",
+      "en": "The Emperor",
+      "app_name": "皇帝",
+      "major": true
+    },
+    {
+      "id": 5,
+      "file": "major_05_hierophant.webp",
+      "zh": "教皇",
+      "en": "The Hierophant",
+      "app_name": "教皇",
+      "major": true
+    },
+    {
+      "id": 6,
+      "file": "major_06_lovers.webp",
+      "zh": "戀人",
+      "en": "The Lovers",
+      "app_name": "戀人",
+      "major": true
+    },
+    {
+      "id": 7,
+      "file": "major_07_chariot.webp",
+      "zh": "戰車",
+      "en": "The Chariot",
+      "app_name": "戰車",
+      "major": true
+    },
+    {
+      "id": 8,
+      "file": "major_08_strength.webp",
+      "zh": "力量",
+      "en": "Strength",
+      "app_name": "力量",
+      "major": true
+    },
+    {
+      "id": 9,
+      "file": "major_09_hermit.webp",
+      "zh": "隱士",
+      "en": "The Hermit",
+      "app_name": "隱士",
+      "major": true
+    },
+    {
+      "id": 10,
+      "file": "major_10_wheel_of_fortune.webp",
+      "zh": "命運之輪",
+      "en": "Wheel of Fortune",
+      "app_name": "命運之輪",
+      "major": true
+    },
+    {
+      "id": 11,
+      "file": "major_11_justice.webp",
+      "zh": "正義",
+      "en": "Justice",
+      "app_name": "正義",
+      "major": true
+    },
+    {
+      "id": 12,
+      "file": "major_12_hanged_man.webp",
+      "zh": "倒吊人",
+      "en": "The Hanged Man",
+      "app_name": "倒吊人",
+      "major": true
+    },
+    {
+      "id": 13,
+      "file": "major_13_death.webp",
+      "zh": "死神",
+      "en": "Death",
+      "app_name": "死神",
+      "major": true
+    },
+    {
+      "id": 14,
+      "file": "major_14_temperance.webp",
+      "zh": "節制",
+      "en": "Temperance",
+      "app_name": "節制",
+      "major": true
+    },
+    {
+      "id": 15,
+      "file": "major_15_devil.webp",
+      "zh": "惡魔",
+      "en": "The Devil",
+      "app_name": "惡魔",
+      "major": true
+    },
+    {
+      "id": 16,
+      "file": "major_16_tower.webp",
+      "zh": "高塔",
+      "en": "The Tower",
+      "app_name": "高塔",
+      "major": true
+    },
+    {
+      "id": 17,
+      "file": "major_17_star.webp",
+      "zh": "星星",
+      "en": "The Star",
+      "app_name": "星星",
+      "major": true
+    },
+    {
+      "id": 18,
+      "file": "major_18_moon.webp",
+      "zh": "月亮",
+      "en": "The Moon",
+      "app_name": "月亮",
+      "major": true
+    },
+    {
+      "id": 19,
+      "file": "major_19_sun.webp",
+      "zh": "太陽",
+      "en": "The Sun",
+      "app_name": "太陽",
+      "major": true
+    },
+    {
+      "id": 20,
+      "file": "major_20_judgement.webp",
+      "zh": "審判",
+      "en": "Judgement",
+      "app_name": "審判",
+      "major": true
+    },
+    {
+      "id": 21,
+      "file": "major_21_world.webp",
+      "zh": "世界",
+      "en": "The World",
+      "app_name": "世界",
+      "major": true
+    },
+    {
+      "id": 22,
+      "file": "minor_wands_01_ace.webp",
+      "zh": "權杖王牌",
+      "en": "Ace of Wands",
+      "app_name": "權杖王牌",
+      "major": false
+    },
+    {
+      "id": 23,
+      "file": "minor_wands_02.webp",
+      "zh": "權杖二",
+      "en": "Two of Wands",
+      "app_name": "權杖二",
+      "major": false
+    },
+    {
+      "id": 24,
+      "file": "minor_wands_03.webp",
+      "zh": "權杖三",
+      "en": "Three of Wands",
+      "app_name": "權杖三",
+      "major": false
+    },
+    {
+      "id": 25,
+      "file": "minor_wands_04.webp",
+      "zh": "權杖四",
+      "en": "Four of Wands",
+      "app_name": "權杖四",
+      "major": false
+    },
+    {
+      "id": 26,
+      "file": "minor_wands_05.webp",
+      "zh": "權杖五",
+      "en": "Five of Wands",
+      "app_name": "權杖五",
+      "major": false
+    },
+    {
+      "id": 27,
+      "file": "minor_wands_06.webp",
+      "zh": "權杖六",
+      "en": "Six of Wands",
+      "app_name": "權杖六",
+      "major": false
+    },
+    {
+      "id": 28,
+      "file": "minor_wands_07.webp",
+      "zh": "權杖七",
+      "en": "Seven of Wands",
+      "app_name": "權杖七",
+      "major": false
+    },
+    {
+      "id": 29,
+      "file": "minor_wands_08.webp",
+      "zh": "權杖八",
+      "en": "Eight of Wands",
+      "app_name": "權杖八",
+      "major": false
+    },
+    {
+      "id": 30,
+      "file": "minor_wands_09.webp",
+      "zh": "權杖九",
+      "en": "Nine of Wands",
+      "app_name": "權杖九",
+      "major": false
+    },
+    {
+      "id": 31,
+      "file": "minor_wands_10.webp",
+      "zh": "權杖十",
+      "en": "Ten of Wands",
+      "app_name": "權杖十",
+      "major": false
+    },
+    {
+      "id": 32,
+      "file": "minor_wands_11_page.webp",
+      "zh": "權杖侍從",
+      "en": "Page of Wands",
+      "app_name": "權杖侍從",
+      "major": false
+    },
+    {
+      "id": 33,
+      "file": "minor_wands_12_knight.webp",
+      "zh": "權杖騎士",
+      "en": "Knight of Wands",
+      "app_name": "權杖騎士",
+      "major": false
+    },
+    {
+      "id": 34,
+      "file": "minor_wands_13_queen.webp",
+      "zh": "權杖皇后",
+      "en": "Queen of Wands",
+      "app_name": "權杖皇后",
+      "major": false
+    },
+    {
+      "id": 35,
+      "file": "minor_wands_14_king.webp",
+      "zh": "權杖國王",
+      "en": "King of Wands",
+      "app_name": "權杖國王",
+      "major": false
+    },
+    {
+      "id": 36,
+      "file": "minor_cups_01_ace.webp",
+      "zh": "聖杯王牌",
+      "en": "Ace of Cups",
+      "app_name": "聖杯王牌",
+      "major": false
+    },
+    {
+      "id": 37,
+      "file": "minor_cups_02.webp",
+      "zh": "聖杯二",
+      "en": "Two of Cups",
+      "app_name": "聖杯二",
+      "major": false
+    },
+    {
+      "id": 38,
+      "file": "minor_cups_03.webp",
+      "zh": "聖杯三",
+      "en": "Three of Cups",
+      "app_name": "聖杯三",
+      "major": false
+    },
+    {
+      "id": 39,
+      "file": "minor_cups_04.webp",
+      "zh": "聖杯四",
+      "en": "Four of Cups",
+      "app_name": "聖杯四",
+      "major": false
+    },
+    {
+      "id": 40,
+      "file": "minor_cups_05.webp",
+      "zh": "聖杯五",
+      "en": "Five of Cups",
+      "app_name": "聖杯五",
+      "major": false
+    },
+    {
+      "id": 41,
+      "file": "minor_cups_06.webp",
+      "zh": "聖杯六",
+      "en": "Six of Cups",
+      "app_name": "聖杯六",
+      "major": false
+    },
+    {
+      "id": 42,
+      "file": "minor_cups_07.webp",
+      "zh": "聖杯七",
+      "en": "Seven of Cups",
+      "app_name": "聖杯七",
+      "major": false
+    },
+    {
+      "id": 43,
+      "file": "minor_cups_08.webp",
+      "zh": "聖杯八",
+      "en": "Eight of Cups",
+      "app_name": "聖杯八",
+      "major": false
+    },
+    {
+      "id": 44,
+      "file": "minor_cups_09.webp",
+      "zh": "聖杯九",
+      "en": "Nine of Cups",
+      "app_name": "聖杯九",
+      "major": false
+    },
+    {
+      "id": 45,
+      "file": "minor_cups_10.webp",
+      "zh": "聖杯十",
+      "en": "Ten of Cups",
+      "app_name": "聖杯十",
+      "major": false
+    },
+    {
+      "id": 46,
+      "file": "minor_cups_11_page.webp",
+      "zh": "聖杯侍從",
+      "en": "Page of Cups",
+      "app_name": "聖杯侍從",
+      "major": false
+    },
+    {
+      "id": 47,
+      "file": "minor_cups_12_knight.webp",
+      "zh": "聖杯騎士",
+      "en": "Knight of Cups",
+      "app_name": "聖杯騎士",
+      "major": false
+    },
+    {
+      "id": 48,
+      "file": "minor_cups_13_queen.webp",
+      "zh": "聖杯皇后",
+      "en": "Queen of Cups",
+      "app_name": "聖杯皇后",
+      "major": false
+    },
+    {
+      "id": 49,
+      "file": "minor_cups_14_king.webp",
+      "zh": "聖杯國王",
+      "en": "King of Cups",
+      "app_name": "聖杯國王",
+      "major": false
+    },
+    {
+      "id": 50,
+      "file": "minor_swords_01_ace.webp",
+      "zh": "寶劍王牌",
+      "en": "Ace of Swords",
+      "app_name": "寶劍王牌",
+      "major": false
+    },
+    {
+      "id": 51,
+      "file": "minor_swords_02.webp",
+      "zh": "寶劍二",
+      "en": "Two of Swords",
+      "app_name": "寶劍二",
+      "major": false
+    },
+    {
+      "id": 52,
+      "file": "minor_swords_03.webp",
+      "zh": "寶劍三",
+      "en": "Three of Swords",
+      "app_name": "寶劍三",
+      "major": false
+    },
+    {
+      "id": 53,
+      "file": "minor_swords_04.webp",
+      "zh": "寶劍四",
+      "en": "Four of Swords",
+      "app_name": "寶劍四",
+      "major": false
+    },
+    {
+      "id": 54,
+      "file": "minor_swords_05.webp",
+      "zh": "寶劍五",
+      "en": "Five of Swords",
+      "app_name": "寶劍五",
+      "major": false
+    },
+    {
+      "id": 55,
+      "file": "minor_swords_06.webp",
+      "zh": "寶劍六",
+      "en": "Six of Swords",
+      "app_name": "寶劍六",
+      "major": false
+    },
+    {
+      "id": 56,
+      "file": "minor_swords_07.webp",
+      "zh": "寶劍七",
+      "en": "Seven of Swords",
+      "app_name": "寶劍七",
+      "major": false
+    },
+    {
+      "id": 57,
+      "file": "minor_swords_08.webp",
+      "zh": "寶劍八",
+      "en": "Eight of Swords",
+      "app_name": "寶劍八",
+      "major": false
+    },
+    {
+      "id": 58,
+      "file": "minor_swords_09.webp",
+      "zh": "寶劍九",
+      "en": "Nine of Swords",
+      "app_name": "寶劍九",
+      "major": false
+    },
+    {
+      "id": 59,
+      "file": "minor_swords_10.webp",
+      "zh": "寶劍十",
+      "en": "Ten of Swords",
+      "app_name": "寶劍十",
+      "major": false
+    },
+    {
+      "id": 60,
+      "file": "minor_swords_11_page.webp",
+      "zh": "寶劍侍從",
+      "en": "Page of Swords",
+      "app_name": "寶劍侍從",
+      "major": false
+    },
+    {
+      "id": 61,
+      "file": "minor_swords_12_knight.webp",
+      "zh": "寶劍騎士",
+      "en": "Knight of Swords",
+      "app_name": "寶劍騎士",
+      "major": false
+    },
+    {
+      "id": 62,
+      "file": "minor_swords_13_queen.webp",
+      "zh": "寶劍皇后",
+      "en": "Queen of Swords",
+      "app_name": "寶劍皇后",
+      "major": false
+    },
+    {
+      "id": 63,
+      "file": "minor_swords_14_king.webp",
+      "zh": "寶劍國王",
+      "en": "King of Swords",
+      "app_name": "寶劍國王",
+      "major": false
+    },
+    {
+      "id": 64,
+      "file": "minor_pentacles_01_ace.webp",
+      "zh": "星幣王牌",
+      "en": "Ace of Pentacles",
+      "app_name": "星幣王牌",
+      "major": false
+    },
+    {
+      "id": 65,
+      "file": "minor_pentacles_02.webp",
+      "zh": "星幣二",
+      "en": "Two of Pentacles",
+      "app_name": "星幣二",
+      "major": false
+    },
+    {
+      "id": 66,
+      "file": "minor_pentacles_03.webp",
+      "zh": "星幣三",
+      "en": "Three of Pentacles",
+      "app_name": "星幣三",
+      "major": false
+    },
+    {
+      "id": 67,
+      "file": "minor_pentacles_04.webp",
+      "zh": "星幣四",
+      "en": "Four of Pentacles",
+      "app_name": "星幣四",
+      "major": false
+    },
+    {
+      "id": 68,
+      "file": "minor_pentacles_05.webp",
+      "zh": "星幣五",
+      "en": "Five of Pentacles",
+      "app_name": "星幣五",
+      "major": false
+    },
+    {
+      "id": 69,
+      "file": "minor_pentacles_06.webp",
+      "zh": "星幣六",
+      "en": "Six of Pentacles",
+      "app_name": "星幣六",
+      "major": false
+    },
+    {
+      "id": 70,
+      "file": "minor_pentacles_07.webp",
+      "zh": "星幣七",
+      "en": "Seven of Pentacles",
+      "app_name": "星幣七",
+      "major": false
+    },
+    {
+      "id": 71,
+      "file": "minor_pentacles_08.webp",
+      "zh": "星幣八",
+      "en": "Eight of Pentacles",
+      "app_name": "星幣八",
+      "major": false
+    },
+    {
+      "id": 72,
+      "file": "minor_pentacles_09.webp",
+      "zh": "星幣九",
+      "en": "Nine of Pentacles",
+      "app_name": "星幣九",
+      "major": false
+    },
+    {
+      "id": 73,
+      "file": "minor_pentacles_10.webp",
+      "zh": "星幣十",
+      "en": "Ten of Pentacles",
+      "app_name": "星幣十",
+      "major": false
+    },
+    {
+      "id": 74,
+      "file": "minor_pentacles_11_page.webp",
+      "zh": "星幣侍從",
+      "en": "Page of Pentacles",
+      "app_name": "星幣侍從",
+      "major": false
+    },
+    {
+      "id": 75,
+      "file": "minor_pentacles_12_knight.webp",
+      "zh": "星幣騎士",
+      "en": "Knight of Pentacles",
+      "app_name": "星幣騎士",
+      "major": false
+    },
+    {
+      "id": 76,
+      "file": "minor_pentacles_13_queen.webp",
+      "zh": "星幣皇后",
+      "en": "Queen of Pentacles",
+      "app_name": "星幣皇后",
+      "major": false
+    },
+    {
+      "id": 77,
+      "file": "minor_pentacles_14_king.webp",
+      "zh": "星幣國王",
+      "en": "King of Pentacles",
+      "app_name": "星幣國王",
+      "major": false
+    }
+  ],
+  "by_name": {
+    "愚者": "major_00_fool.webp",
+    "魔術師": "major_01_magician.webp",
+    "女祭司": "major_02_high_priestess.webp",
+    "女皇": "major_03_empress.webp",
+    "皇帝": "major_04_emperor.webp",
+    "教皇": "major_05_hierophant.webp",
+    "戀人": "major_06_lovers.webp",
+    "戰車": "major_07_chariot.webp",
+    "力量": "major_08_strength.webp",
+    "隱士": "major_09_hermit.webp",
+    "命運之輪": "major_10_wheel_of_fortune.webp",
+    "正義": "major_11_justice.webp",
+    "倒吊人": "major_12_hanged_man.webp",
+    "死神": "major_13_death.webp",
+    "節制": "major_14_temperance.webp",
+    "惡魔": "major_15_devil.webp",
+    "高塔": "major_16_tower.webp",
+    "星星": "major_17_star.webp",
+    "月亮": "major_18_moon.webp",
+    "太陽": "major_19_sun.webp",
+    "審判": "major_20_judgement.webp",
+    "世界": "major_21_world.webp",
+    "權杖王牌": "minor_wands_01_ace.webp",
+    "權杖二": "minor_wands_02.webp",
+    "權杖三": "minor_wands_03.webp",
+    "權杖四": "minor_wands_04.webp",
+    "權杖五": "minor_wands_05.webp",
+    "權杖六": "minor_wands_06.webp",
+    "權杖七": "minor_wands_07.webp",
+    "權杖八": "minor_wands_08.webp",
+    "權杖九": "minor_wands_09.webp",
+    "權杖十": "minor_wands_10.webp",
+    "權杖侍從": "minor_wands_11_page.webp",
+    "權杖騎士": "minor_wands_12_knight.webp",
+    "權杖皇后": "minor_wands_13_queen.webp",
+    "權杖國王": "minor_wands_14_king.webp",
+    "聖杯王牌": "minor_cups_01_ace.webp",
+    "聖杯二": "minor_cups_02.webp",
+    "聖杯三": "minor_cups_03.webp",
+    "聖杯四": "minor_cups_04.webp",
+    "聖杯五": "minor_cups_05.webp",
+    "聖杯六": "minor_cups_06.webp",
+    "聖杯七": "minor_cups_07.webp",
+    "聖杯八": "minor_cups_08.webp",
+    "聖杯九": "minor_cups_09.webp",
+    "聖杯十": "minor_cups_10.webp",
+    "聖杯侍從": "minor_cups_11_page.webp",
+    "聖杯騎士": "minor_cups_12_knight.webp",
+    "聖杯皇后": "minor_cups_13_queen.webp",
+    "聖杯國王": "minor_cups_14_king.webp",
+    "寶劍王牌": "minor_swords_01_ace.webp",
+    "寶劍二": "minor_swords_02.webp",
+    "寶劍三": "minor_swords_03.webp",
+    "寶劍四": "minor_swords_04.webp",
+    "寶劍五": "minor_swords_05.webp",
+    "寶劍六": "minor_swords_06.webp",
+    "寶劍七": "minor_swords_07.webp",
+    "寶劍八": "minor_swords_08.webp",
+    "寶劍九": "minor_swords_09.webp",
+    "寶劍十": "minor_swords_10.webp",
+    "寶劍侍從": "minor_swords_11_page.webp",
+    "寶劍騎士": "minor_swords_12_knight.webp",
+    "寶劍皇后": "minor_swords_13_queen.webp",
+    "寶劍國王": "minor_swords_14_king.webp",
+    "星幣王牌": "minor_pentacles_01_ace.webp",
+    "星幣二": "minor_pentacles_02.webp",
+    "星幣三": "minor_pentacles_03.webp",
+    "星幣四": "minor_pentacles_04.webp",
+    "星幣五": "minor_pentacles_05.webp",
+    "星幣六": "minor_pentacles_06.webp",
+    "星幣七": "minor_pentacles_07.webp",
+    "星幣八": "minor_pentacles_08.webp",
+    "星幣九": "minor_pentacles_09.webp",
+    "星幣十": "minor_pentacles_10.webp",
+    "星幣侍從": "minor_pentacles_11_page.webp",
+    "星幣騎士": "minor_pentacles_12_knight.webp",
+    "星幣皇后": "minor_pentacles_13_queen.webp",
+    "星幣國王": "minor_pentacles_14_king.webp",
+    "牌背": "card_back.webp"
+  }
+}
